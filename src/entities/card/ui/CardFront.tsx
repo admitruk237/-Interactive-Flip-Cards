@@ -1,27 +1,28 @@
+import { type MouseEvent } from 'react';
 import type { Card as CardType } from '../model/types';
-
+import { Card, CardContent, CardHeader, CardTitle } from '@shared/ui/card';
 import { Button } from '@shared/ui/button';
 import { Star } from 'lucide-react';
 
 type Props = {
   card: CardType;
-  onToggleFavorite: (id: string, e: React.MouseEvent) => void;
+  onToggleFavorite: (e: MouseEvent) => void;
 };
 
 export const CardFront = ({ card, onToggleFavorite }: Props) => {
   return (
-    <Card className={`card-face h-full flex flex-col rarity-${card.stats.rarity}`}>
+    <Card rarity={card.stats.rarity} className="card-face h-full flex flex-col">
       <div className="relative h-48 w-full overflow-hidden">
         <img
           src={card.image}
           alt={card.title}
-          className="h-full w-full object-cover transition-transform hover:scale-110 duration-500"
+          className="h-full w-full object-cover transition-transform hover:scale-105 duration-500"
         />
         <Button
           variant="ghost"
           size="icon"
           className="absolute top-2 right-2 bg-background/50 backdrop-blur-sm hover:bg-background/80"
-          onClick={(e) => onToggleFavorite(card.id, e)}
+          onClick={onToggleFavorite}
         >
           <Star
             className={
@@ -45,6 +46,6 @@ export const CardFront = ({ card, onToggleFavorite }: Props) => {
           Rarity: <span className="font-bold">{card.stats.rarity}</span>
         </p>
       </CardContent>
-    </миCard>
+    </Card>
   );
 };

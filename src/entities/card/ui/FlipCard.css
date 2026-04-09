@@ -1,0 +1,93 @@
+.card-container {
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.card-inner--flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 12px;
+}
+
+.card-face--back {
+  transform: rotateY(180deg);
+}
+
+.rarity-legendary {
+  background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 50%, #f59e0b 100%);
+  border-color: #fef08a;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+  color: #451a03;
+}
+
+.rarity-epic {
+  background: linear-gradient(
+    135deg,
+    #2e1065 0%,
+    #7c3aed 25%,
+    #f5f3ff 50%,
+    #7c3aed 75%,
+    #2e1065 100%
+  );
+  border-color: #ddd6fe;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  color: #0f172a;
+}
+
+.rarity-rare {
+  background: linear-gradient(
+    135deg,
+    #1e3a8a 0%,
+    #3b82f6 25%,
+    #eff6ff 50%,
+    #3b82f6 75%,
+    #1e3a8a 100%
+  );
+  border-color: #bfdbfe;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  color: #0f172a;
+}
+
+.rarity-common {
+  background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 50%, #64748b 100%);
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #0f172a;
+}
+
+.card-face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.4) 45%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.4) 55%,
+    transparent 80%
+  );
+  z-index: 10;
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+  pointer-events: none;
+}
+
+.card-container:hover .card-face::after {
+  transform: translateX(100%);
+}
