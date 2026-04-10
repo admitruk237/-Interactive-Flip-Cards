@@ -1,6 +1,22 @@
-import type { Card } from "@/entities/card/model/types";
+import { Rarity } from "./types";
 
-export const INITIAL_CARDS: Card[] = [
+export const RARITIES = ['common', 'rare', 'epic', 'legendary'] as const;
+
+export const RARITY_OPTIONS: { label: string; value: Rarity }[] = RARITIES.map((rarity) => ({
+  label: rarity.charAt(0).toUpperCase() + rarity.slice(1),
+  value: rarity,
+}));
+
+export const CATEGORIES = ['fire', 'water', 'earth', 'air'] as const;
+
+export const CATEGORY_OPTIONS = CATEGORIES.map((cat) => ({
+  label: cat.charAt(0).toUpperCase() + cat.slice(1),
+  value: cat,
+}));
+
+export const STAT_KEYS = ['power', 'defense', 'speed'] as const;
+
+export const INITIAL_CARDS: any[] = [
   {
     id: "1",
     title: "Fire Dragon",

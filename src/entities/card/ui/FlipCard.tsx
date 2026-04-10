@@ -21,7 +21,7 @@ export const FlipCard = ({ card, onDelete, onToggleFavorite }: Props) => {
       <div 
         className={`relative h-full w-full transition-transform duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] [transform-style:preserve-3d] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}
       >
-        <CardFront card={card} />
+        <CardFront card={card} onToggleFavorite={actions.onFavorite} />
         <CardBack card={card} onDelete={actions.onDelete} onToggleFavorite={actions.onFavorite} />
       </div>
     </div>

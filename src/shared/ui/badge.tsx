@@ -19,10 +19,16 @@ const badgeVariants = cva(
         ghost:
           "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
         link: "text-primary underline-offset-4 hover:underline",
+        favorite: "bg-favorite-bg border-2 border-favorite-border text-favorite-text shadow-sm hover:scale-105 active:scale-95 cursor-pointer",
+      },
+      size: {
+        default: "h-5 px-2 py-0.5 text-xs",
+        header: "w-[101.4px] h-[52px] px-4 rounded-full text-[16px] font-bold leading-[24px] tracking-[-0.31px] transition-all",
       },
     },
     defaultVariants: {
       variant: "default",
+      size: "default",
     },
   }
 )
@@ -30,6 +36,7 @@ const badgeVariants = cva(
 function Badge({
   className,
   variant = "default",
+  size = "default",
   asChild = false,
   ...props
 }: React.ComponentProps<"span"> &
@@ -40,7 +47,8 @@ function Badge({
     <Comp
       data-slot="badge"
       data-variant={variant}
-      className={cn(badgeVariants({ variant }), className)}
+      data-size={size}
+      className={cn(badgeVariants({ variant, size }), className)}
       {...props}
     />
   )

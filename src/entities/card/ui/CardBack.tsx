@@ -13,7 +13,7 @@ type Props = {
 
 export const CardBack = ({ card, onDelete, onToggleFavorite }: Props) => {
   return (
-    <Card rarity={card.stats.rarity} className="absolute inset-0 flex h-full w-full flex-col overflow-hidden rounded-xl [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)]">
+    <Card rarity={card.stats.rarity} isFavorite={card.isFavorite} className="absolute inset-0 flex h-full w-full flex-col overflow-hidden rounded-xl [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)]">
       <CardHeader className="p-4 border-b border-border/50 flex flex-row items-center justify-between space-y-0">
         <CardTitle className="text-lg">Stats: {card.title}</CardTitle>
         <Button

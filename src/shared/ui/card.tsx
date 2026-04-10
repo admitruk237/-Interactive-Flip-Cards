@@ -25,12 +25,16 @@ const cardVariants = cva(
 function Card({
   className,
   rarity,
+  isFavorite,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof cardVariants>) {
+}: React.ComponentProps<"div"> & VariantProps<typeof cardVariants> & { isFavorite?: boolean }) {
   return (
     <div
       data-slot="card"
-      className={cn(cardVariants({ rarity, className }))}
+      className={cn(
+        cardVariants({ rarity, className }),
+        isFavorite && "ring-2 ring-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.5)] border-amber-400/50"
+      )}
       {...props}
     />
   )
