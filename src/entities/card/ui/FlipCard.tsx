@@ -2,7 +2,6 @@ import { useFlipCard } from '../model/useFlipCard';
 import type { Card } from '../model/types';
 import { CardFront } from './CardFront';
 import { CardBack } from './CardBack';
-import './FlipCard.css';
 
 type Props = {
   card: Card;
@@ -18,10 +17,12 @@ export const FlipCard = ({ card, onDelete, onToggleFavorite }: Props) => {
   });
 
   return (
-    <div className="card-container h-[420px] w-[300px] cursor-pointer" {...handlers}>
-      <div className={`card-inner w-full h-full ${isFlipped ? 'card-inner--flipped' : ''}`}>
-        <CardFront card={card} onToggleFavorite={actions.onFavorite} />
-        <CardBack card={card} onDelete={actions.onDelete} />
+    <div className="group h-[420px] w-[300px] cursor-grab [perspective:1000px]" {...handlers}>
+      <div 
+        className={`relative h-full w-full transition-transform duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] [transform-style:preserve-3d] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}
+      >
+        <CardFront card={card} />
+        <CardBack card={card} onDelete={actions.onDelete} onToggleFavorite={actions.onFavorite} />
       </div>
     </div>
   );

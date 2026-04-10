@@ -8,10 +8,12 @@ const cardVariants = cva(
     variants: {
       rarity: {
         default: "bg-card",
-        common: "rarity-common bg-transparent",
-        rare: "rarity-rare bg-transparent",
-        epic: "rarity-epic bg-transparent",
-        legendary: "rarity-legendary bg-transparent",
+        common:
+          "bg-[linear-gradient(135deg,#f1f5f9_0%,#94a3b8_50%,#64748b_100%)] border-[#e2e8f0] shadow-md text-[#0f172a]",
+        rare: "bg-[linear-gradient(135deg,#1e3a8a_0%,#3b82f6_25%,#eff6ff_50%,#3b82f6_75%,#1e3a8a_100%)] border-[#bfdbfe] shadow-[0_0_20px_rgba(59,130,246,0.4)] text-[#0f172a]",
+        epic: "bg-[linear-gradient(135deg,#2e1065_0%,#7c3aed_25%,#f5f3ff_50%,#7c3aed_75%,#2e1065_100%)] border-[#ddd6fe] shadow-[0_0_20px_rgba(139,92,246,0.4)] text-[#0f172a]",
+        legendary:
+          "bg-[linear-gradient(135deg,#fef3c7_0%,#fbbf24_50%,#f59e0b_100%)] border-[#fef08a] shadow-[0_0_20px_rgba(251,191,36,0.4)] text-[#451a03]",
       },
     },
     defaultVariants: {

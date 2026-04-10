@@ -1,5 +1,6 @@
 import { useState, type MouseEvent } from 'react';
 import { useDeviceType } from '@shared/lib/hooks/useIsMobile';
+import { useFlipSound } from '@shared/lib/hooks/useFlipSound';
 
 type Props = {
   id: string;
@@ -10,22 +11,26 @@ type Props = {
 export function useFlipCard({ id, onDelete, onToggleFavorite }: Props) {
   const [isFlipped, setIsFlipped] = useState(false);
   const { isTablet } = useDeviceType();
+  const { playFlip } = useFlipSound();
 
   const handleToggleFlip = () => {
     if (isTablet) {
       setIsFlipped((prev) => !prev);
+      playFlip();
     }
   };
 
   const handleMouseEnter = () => {
     if (!isTablet) {
       setIsFlipped(true);
+      playFlip();
     }
   };
 
   const handleMouseLeave = () => {
     if (!isTablet) {
       setIsFlipped(false);
+      playFlip();
     }
   };
 

@@ -3,18 +3,31 @@ import type { Card as CardType } from '../model/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@shared/ui/card';
 import { Button } from '@shared/ui/button';
 import { Progress } from '@shared/ui/progress';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Star } from 'lucide-react';
 
 type Props = {
   card: CardType;
   onDelete: (e: MouseEvent) => void;
+  onToggleFavorite: (e: MouseEvent) => void;
 };
 
-export const CardBack = ({ card, onDelete }: Props) => {
+export const CardBack = ({ card, onDelete, onToggleFavorite }: Props) => {
   return (
-    <Card rarity={card.stats.rarity} className="card-face card-face--back h-full flex flex-col">
-      <CardHeader className="p-4 border-b border-border/50">
+    <Card rarity={card.stats.rarity} className="absolute inset-0 flex h-full w-full flex-col overflow-hidden rounded-xl [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)]">
+      <CardHeader className="p-4 border-b border-border/50 flex flex-row items-center justify-between space-y-0">
         <CardTitle className="text-lg">Stats: {card.title}</CardTitle>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 hover:bg-background/20"
+          onClick={onToggleFavorite}
+        >
+          <Star
+            className={
+              card.isFavorite ? 'fill-amber-400 text-amber-600 drop-shadow-sm' : 'text-muted-foreground/60'
+            }
+          />
+        </Button>
       </CardHeader>
 
       <CardContent className="p-4 flex-1 flex flex-col justify-between">
