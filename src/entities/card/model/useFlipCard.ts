@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { useDeviceType } from '@shared/lib/hooks/useIsMobile';
 import { useFlipSound } from '@shared/lib/hooks/useFlipSound';
+import type { UseFlipCardReturn } from './types';
 
-type Props = {
+interface Props {
   id: string;
   onDelete: (id: string) => void;
   onToggleFavorite: (id: string) => void;
-};
+}
 
-export function useFlipCard({ id, onDelete, onToggleFavorite }: Props) {
+export function useFlipCard({ id, onDelete, onToggleFavorite }: Props): UseFlipCardReturn {
   const [isFlipped, setIsFlipped] = useState(false);
   const { isTablet } = useDeviceType();
   const { playFlip } = useFlipSound();

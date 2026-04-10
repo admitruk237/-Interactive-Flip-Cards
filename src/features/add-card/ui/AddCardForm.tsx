@@ -31,10 +31,10 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-type Props = {
+interface Props {
   onSubmit: (card: Omit<Card, 'id' | 'isFavorite'>) => void;
   onCancel: () => void;
-};
+}
 
 export const AddCardForm = ({ onSubmit, onCancel }: Props) => {
   const form = useForm<FormValues>({

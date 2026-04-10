@@ -1,6 +1,10 @@
 import { useRef } from 'react';
 
-export const useFlipSound = () => {
+export interface UseFlipSoundReturn {
+  playFlip: () => void;
+}
+
+export const useFlipSound = (): UseFlipSoundReturn => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const playFlip = () => {

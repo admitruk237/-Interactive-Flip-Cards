@@ -3,11 +3,11 @@ import type { Card } from '../model/types';
 import { CardFront } from './CardFront';
 import { CardBack } from './CardBack';
 
-type Props = {
+interface Props {
   card: Card;
   onDelete: (id: string) => void;
   onToggleFavorite: (id: string) => void;
-};
+}
 
 export const FlipCard = ({ card, onDelete, onToggleFavorite }: Props) => {
   const { isFlipped, handlers, actions } = useFlipCard({

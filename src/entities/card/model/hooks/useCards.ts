@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import type { Card } from '../types';
+import type { Card, UseCardsReturn } from '../types';
 import { INITIAL_CARDS } from '../constants';
 
 const STORAGE_KEY = 'dragon-collection-cards';
 
-export const useCards = () => {
+export const useCards = (): UseCardsReturn => {
   const [cards, setCards] = useState<Card[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);

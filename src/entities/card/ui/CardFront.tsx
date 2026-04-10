@@ -6,10 +6,10 @@ import { Badge } from '@shared/ui/badge';
 import { Button } from '@/shared/ui/button';
 import { Star } from 'lucide-react';
 
-type Props = {
+interface Props {
   card: CardType;
   onToggleFavorite: (e: MouseEvent) => void;
-};
+}
 
 export const CardFront = ({ card, onToggleFavorite }: Props) => {
   return (

@@ -11,9 +11,9 @@ import {
 import { AddCardForm } from './AddCardForm';
 import type { Card } from '@/entities/card/model/types';
 
-type Props = {
+interface Props {
   onAdd: (card: Omit<Card, 'id' | 'isFavorite'>) => void;
-};
+}
 
 export const AddCardDialog = ({ onAdd }: Props) => {
   const [open, setOpen] = useState(false);

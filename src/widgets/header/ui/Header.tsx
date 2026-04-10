@@ -7,12 +7,12 @@ import {
 } from '@/shared/ui/dropdown-menu';
 import { Button } from '@/shared/ui/button';
 import { Badge } from '@/shared/ui/badge';
-import { Sun, Moon, Monitor } from 'lucide-react';
+import { Monitor, Moon, Sun } from 'lucide-react';
 import type { Card } from '@/entities/card/model/types';
 
-type Props = {
+interface Props {
   cards: Card[];
-};
+}
 
 export const Header = ({ cards }: Props) => {
   const { setTheme } = useTheme();

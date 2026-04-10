@@ -5,12 +5,12 @@ import { useDragAndDrop } from '@shared/lib/hooks/useDragAndDrop';
 import { ConfirmDeleteDialog } from '@features/delete-card/ui/ConfirmDeleteDialog';
 import { cn } from '@shared/lib/utils';
 
-type Props = {
+interface Props {
   cards: Card[];
   onReorder: (cards: Card[]) => void;
   onDelete: (id: string) => void;
   onToggleFavorite: (id: string) => void;
-};
+}
 
 const GRID_LAYOUT_CLASSES = cn(
   'grid w-full grid-cols-[repeat(auto-fill,minmax(160px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 sm:gap-8 overflow-visible justify-items-center',

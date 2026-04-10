@@ -1,11 +1,20 @@
-import { useState, type DragEvent } from 'react';
+import { type DragEvent, useState } from 'react';
 
-type Props<T> = {
+export interface UseDragAndDropReturn {
+  draggedIndex: number | null;
+  handlers: {
+    onDragStart: (index: number) => void;
+    onDragOver: (e: DragEvent<HTMLDivElement>, index: number) => void;
+    onDragEnd: () => void;
+  };
+}
+
+interface Props<T> {
   items: T[];
   onReorder: (newItems: T[]) => void;
-};
+}
 
-export const useDragAndDrop = <T>({ items, onReorder }: Props<T>) => {
+export const useDragAndDrop = <T>({ items, onReorder }: Props<T>): UseDragAndDropReturn => {
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
   const handleDragStart = (index: number) => {

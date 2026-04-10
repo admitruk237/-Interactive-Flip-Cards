@@ -10,11 +10,11 @@ import { Button } from '@shared/ui/button';
 import { AlertCircle } from 'lucide-react';
 import type { Card } from '@entities/card/model/types';
 
-type Props = {
+interface Props {
   card: Card | null;
   onClose: () => void;
   onConfirm: () => void;
-};
+}
 
 export const ConfirmDeleteDialog = ({ card, onClose, onConfirm }: Props) => {
   return (

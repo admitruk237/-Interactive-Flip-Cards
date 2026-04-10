@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-type DeviceType = {
+export interface UseDeviceTypeReturn {
   isSmallMobile: boolean;
   isMobile: boolean;
   isTablet: boolean;
   isDesktop: boolean;
-};
+}
 
-export function useDeviceType(): DeviceType {
-  const [device, setDevice] = useState<DeviceType>({
+export function useDeviceType(): UseDeviceTypeReturn {
+  const [device, setDevice] = useState<UseDeviceTypeReturn>({
     isSmallMobile: false,
     isMobile: false,
     isTablet: false,

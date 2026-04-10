@@ -5,11 +5,11 @@ import { Button } from '@shared/ui/button';
 import { Progress } from '@shared/ui/progress';
 import { Star, Trash2 } from 'lucide-react';
 
-type Props = {
+interface Props {
   card: CardType;
   onDelete: (e: MouseEvent) => void;
   onToggleFavorite: (e: MouseEvent) => void;
-};
+}
 
 export const CardBack = ({ card, onDelete, onToggleFavorite }: Props) => {
   return (
