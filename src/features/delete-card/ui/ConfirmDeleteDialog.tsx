@@ -31,8 +31,8 @@ export const ConfirmDeleteDialog = ({ card, onClose, onConfirm }: Props) => {
             be undone.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="gap-2 sm:gap-0">
-          <Button variant="ghost" onClick={onClose} className="flex-1">
+        <DialogFooter className="gap-3">
+          <Button variant="glass" onClick={onClose} className="flex-1">
             Cancel
           </Button>
           <Button variant="destructive" onClick={onConfirm} className="flex-1">

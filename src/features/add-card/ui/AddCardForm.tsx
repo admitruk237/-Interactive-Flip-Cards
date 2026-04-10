@@ -1,11 +1,17 @@
-import { useForm, FormProvider } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 import { FormInput } from '@/shared/ui/form-input';
 import { FormSelect } from '@/shared/ui/form-select';
-import { RARITY_OPTIONS, CATEGORY_OPTIONS, STAT_KEYS, RARITIES, CATEGORIES } from '@/entities/card/model/constants';
+import {
+  CATEGORIES,
+  CATEGORY_OPTIONS,
+  RARITIES,
+  RARITY_OPTIONS,
+  STAT_KEYS,
+} from '@/entities/card/model/constants';
 import type { Card } from '@/entities/card/model/types';
 
 const statSchema = z.number().min(0).max(100, 'Max 100');
@@ -36,7 +42,8 @@ export const AddCardForm = ({ onSubmit, onCancel }: Props) => {
     defaultValues: {
       title: '',
       category: 'fire',
-      image: 'https://images.unsplash.com/photo-1577493322601-3ae1f35c750c?q=80&w=300&h=420&auto=format&fit=crop',
+      image:
+        'https://images.unsplash.com/photo-1577493322601-3ae1f35c750c?q=80&w=300&h=420&auto=format&fit=crop',
       description: '',
       stats: {
         power: 50,
@@ -57,24 +64,33 @@ export const AddCardForm = ({ onSubmit, onCancel }: Props) => {
         <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">General Info</h3>
-              <FormInput name="title" label="Card Title" placeholder="e.g. Ancient Ember" className="bg-input-bg border-border" />
-              <FormSelect 
-                name="category" 
-                label="Category" 
+              <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">
+                General Info
+              </h3>
+              <FormInput
+                name="title"
+                label="Card Title"
+                placeholder="e.g. Ancient Ember"
+                className="bg-input-bg border-border"
+              />
+              <FormSelect
+                name="category"
+                label="Category"
                 placeholder="Select category"
                 options={CATEGORY_OPTIONS}
               />
-              <FormSelect 
-                name="stats.rarity" 
-                label="Rarity" 
+              <FormSelect
+                name="stats.rarity"
+                label="Rarity"
                 placeholder="Select rarity"
                 options={RARITY_OPTIONS}
               />
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">Attributes</h3>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">
+                Attributes
+              </h3>
               <div className="grid grid-cols-1 gap-4 rounded-xl bg-input-bg p-4 border border-border">
                 {STAT_KEYS.map((stat) => (
                   <FormInput
@@ -96,9 +112,21 @@ export const AddCardForm = ({ onSubmit, onCancel }: Props) => {
           </div>
 
           <div className="space-y-4 pt-4 border-t border-border">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">Visuals & Legend</h3>
-            <FormInput name="image" label="Image URL" placeholder="https://..." className="bg-input-bg border-border" />
-            <FormInput name="description" label="Short Lore" placeholder="Describe your dragon..." className="bg-input-bg border-border" />
+            <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">
+              Visuals & Legend
+            </h3>
+            <FormInput
+              name="image"
+              label="Image URL"
+              placeholder="https://..."
+              className="bg-input-bg border-border"
+            />
+            <FormInput
+              name="description"
+              label="Short Lore"
+              placeholder="Describe your dragon..."
+              className="bg-input-bg border-border"
+            />
           </div>
 
           <div className="flex justify-end gap-3 pt-6">

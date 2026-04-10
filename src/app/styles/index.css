@@ -4,6 +4,7 @@
 
 @theme {
   --color-background: var(--background);
+  --color-secondary: var(--secondary);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
   --color-border: var(--border);
@@ -19,11 +20,14 @@
   --color-favorite-border: var(--favorite-border);
   --color-favorite-text: var(--favorite-text);
   --color-toggle-bg: var(--toggle-bg);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 }
 
 :root {
   --background: #ffffff;
   --foreground: #f8fafc;
+  --secondary: #b4cfe9;
   --surface: #ffffffe5;
   --text-primary: #0f172a;
   --text-secondary: #475569;
@@ -39,11 +43,14 @@
   --favorite-border: #fdc700;
   --favorite-text: #733e0a;
   --active-border: #334155;
+  --destructive: #ef4444;
+  --destructive-foreground: #f8fafc;
   --dot-grid-color: rgba(15, 23, 42, 0.05);
 }
 
 .dark {
   --background: #101828;
+  --secondary: #b4cfe9;
   --foreground: #1a2236;
   --surface: #101828e5;
   --text-primary: #f8fafc;
@@ -60,6 +67,8 @@
   --favorite-border: #d08700;
   --favorite-text: #fdc700;
   --active-border: #60a5fa;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #f8fafc;
   --dot-grid-color: rgba(255, 255, 255, 0.03);
 }
 
