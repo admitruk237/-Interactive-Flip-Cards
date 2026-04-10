@@ -20,7 +20,7 @@ export const INITIAL_CARDS: any[] = [
   {
     id: "1",
     title: "Fire Dragon",
-    image: "https://images.unsplash.com/photo-1577493322601-3ae1f30dc05a?q=80&w=400&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1601987077677-5346c0c57d3f?q=80&w=800&auto=format&fit=crop",
     description: "A powerful dragon that commands the flames of the deep mountains.",
     category: "fire",
     isFavorite: false,

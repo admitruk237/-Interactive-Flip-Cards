@@ -11,14 +11,14 @@ type Props = {
 };
 
 const GRID_LAYOUT_CLASSES = cn(
-  'grid w-full grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 sm:gap-8 overflow-visible',
-  /* 2 columns logic */
+  'grid w-full grid-cols-[repeat(auto-fill,minmax(160px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 sm:gap-8 overflow-visible justify-items-center',
+  /* 2 columns logic for larger screens */
   '[#grid-container]:sm:[&>div:nth-child(2n+1)]:justify-self-start',
   '[#grid-container]:sm:[&>div:nth-child(2n)]:justify-self-end',
   /* 3 columns logic */
   '[#grid-container]:lg:[&>div:nth-child(3n+1)]:justify-self-start',
   '[#grid-container]:lg:[&>div:nth-child(3n)]:justify-self-end',
-  '[#grid-container]:lg:[&div:nth-child(3n+2)]:justify-self-center'
+  '[#grid-container]:lg:[&>div:nth-child(3n+2)]:justify-self-center'
 );
 
 export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite }: Props) => {
@@ -32,7 +32,7 @@ export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite }: Props
       {cards.map((card, index) => (
         <div
           key={card.id}
-          className={`relative h-[420px] w-[300px] cursor-grab select-none transition-all duration-200 ease-in-out active:cursor-grabbing ${
+          className={`relative aspect-[3/4.2] w-full max-w-[320px] cursor-grab select-none transition-all duration-200 ease-in-out active:cursor-grabbing ${
             draggedIndex === index ? 'opacity-50 scale-95' : 'hover:scale-[1.02]'
           }`}
           draggable

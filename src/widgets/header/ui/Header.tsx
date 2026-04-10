@@ -19,15 +19,15 @@ export const Header = ({ cards }: Props) => {
   const favoriteCount = cards.filter((c) => c.isFavorite).length;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-header-border bg-header-bg backdrop-blur-xl mb-8">
-      <div className="flex items-center gap-5 justify-between w-full max-w-6xl mx-auto px-6 h-20">
+    <header className="sticky top-0 z-50 w-full border-b border-header-border bg-header-bg backdrop-blur-xl mb-6">
+      <div className="flex items-center gap-1.5 sm:gap-3 justify-between w-full max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20">
         <div className="flex w-full justify-between items-center">
           <div className="flex flex-col">
-            <h1 className="text-[24px] font-bold leading-[32px] tracking-[0.07px] uppercase bg-[linear-gradient(90deg,#155DFC_0%,#9810FA_100%)] bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(21,93,252,0.1)]">
+            <h1 className="text-md sm:text-2xl font-bold sm:leading-[32px] tracking-[0.07px] uppercase bg-[linear-gradient(90deg,#155DFC_0%,#9810FA_100%)] bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(21,93,252,0.1)]">
               Card Collection
             </h1>
-            <p className="text-[12px] font-normal leading-[16px] text-[#6A7282] dark:text-[#99A1AF]">
-              Hover or tap a card to flip it
+            <p className="text-[10px] sm:text-[12px] font-normal leading-[14px] sm:leading-[16px] text-[#6A7282] dark:text-[#99A1AF]">
+              Hover or tap to flip
             </p>
           </div>
           <Badge variant="favorite" size="header" className="gap-2">

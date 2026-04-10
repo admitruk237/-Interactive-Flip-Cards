@@ -1,21 +1,24 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 
-export function useFlipSound(soundPath: string = '/sounds/flip.wav') {
+export const useFlipSound = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    audioRef.current = new Audio(soundPath);
-    audioRef.current.volume = 0.3;
-  }, [soundPath]);
-
   const playFlip = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch((error) => {
-        console.warn('Autoplay was prevented. Interaction required first.', error);
-      });
+    if (!audioRef.current) {
+      audioRef.current = new Audio('/sounds/flip.mp3');
+      audioRef.current.volume = 0.3;
     }
+
+    const audio = audioRef.current;
+    
+    // Reset to start for rapid clicks
+    audio.currentTime = 0;
+    
+    audio.play().catch((err) => {
+      // Browser autoplay policy might block this until user interaction
+      console.warn('Audio play blocked or failed:', err);
+    });
   };
 
   return { playFlip };
-}
+};
