@@ -3,6 +3,7 @@ import { FlipCard } from '@entities/card';
 import type { Card } from '@entities/card/model/types';
 import { useDragAndDrop } from '@shared/lib/hooks/useDragAndDrop';
 import { ConfirmDeleteDialog } from '@features/delete-card/ui/ConfirmDeleteDialog';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { cn } from '@shared/lib/utils';
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
   onReorder: (cards: Card[]) => void;
   onDelete: (id: string) => void;
   onToggleFavorite: (id: string) => void;
+  disableDrag?: boolean;
 }
 
 const GRID_LAYOUT_CLASSES = cn(
@@ -23,8 +25,12 @@ const GRID_LAYOUT_CLASSES = cn(
   '[#grid-container]:lg:[&>div:nth-child(3n+2)]:justify-self-center'
 );
 
-export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite }: Props) => {
+export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite, disableDrag }: Props) => {
   const [cardToDelete, setCardToDelete] = useState<Card | null>(null);
+  const [parent, enableAnimations] = useAutoAnimate<HTMLDivElement>({
+    duration: 700,
+    easing: 'ease-out',
+  });
 
   const { draggedIndex, handlers } = useDragAndDrop({
     items: cards,
@@ -39,17 +45,31 @@ export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite }: Props
   };
 
   return (
-    <div className={GRID_LAYOUT_CLASSES} id="grid-container">
+    <div className={GRID_LAYOUT_CLASSES} id="grid-container" ref={parent}>
       {cards.map((card, index) => (
         <div
           key={card.id}
-          className={`relative aspect-[3/4.2] w-full max-w-[320px] cursor-grab select-none transition-all duration-200 ease-in-out active:cursor-grabbing ${
-            draggedIndex === index ? 'opacity-50 scale-95' : 'hover:scale-[1.02]'
-          }`}
-          draggable
-          onDragStart={() => handlers.onDragStart(index)}
-          onDragOver={(e) => handlers.onDragOver(e, index)}
-          onDragEnd={handlers.onDragEnd}
+          className={cn(
+            'draggable-item relative aspect-[3/4.2] w-full max-w-[320px] select-none transition-all duration-200 ease-in-out',
+            !disableDrag && 'cursor-grab active:cursor-grabbing hover:scale-[1.02]',
+            draggedIndex === index && 'opacity-50 scale-95'
+          )}
+          draggable={!disableDrag}
+          onDragStart={(e) => {
+            if (disableDrag) {
+              e.preventDefault();
+              return;
+            }
+            enableAnimations(false);
+            handlers.onDragStart(index);
+          }}
+          onDragOver={(e) => !disableDrag && handlers.onDragOver(e, index)}
+          onDragEnd={() => {
+            if (!disableDrag) {
+              handlers.onDragEnd();
+              enableAnimations(true);
+            }
+          }}
         >
           <FlipCard
             card={card}

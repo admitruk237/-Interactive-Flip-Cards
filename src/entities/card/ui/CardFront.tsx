@@ -23,6 +23,7 @@ export const CardFront = ({ card, onToggleFavorite }: Props) => {
           src={card.image}
           alt={card.title}
           className="h-full w-full object-cover transition-transform hover:scale-105 duration-500"
+          draggable={false}
         />
         <Button
           variant="ghost"

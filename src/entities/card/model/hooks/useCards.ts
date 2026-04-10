@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import type { Card, UseCardsReturn } from '../types';
+import { useEffect, useMemo, useState } from 'react';
+import type { Card, Category, UseCardsReturn } from '../types';
 import { INITIAL_CARDS } from '../constants';
 
 const STORAGE_KEY = 'dragon-collection-cards';
@@ -18,6 +18,13 @@ export const useCards = (): UseCardsReturn => {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));
   }, [cards]);
+
+  const [filter, setFilter] = useState<Category | 'all'>('all');
+
+  const filteredCards = useMemo(() => {
+    if (filter === 'all') return cards;
+    return cards.filter((c) => c.category === filter);
+  }, [cards, filter]);
 
   const handleAddCard = (newCardData: Omit<Card, 'id' | 'isFavorite'>) => {
     const newCard: Card = {
@@ -42,6 +49,9 @@ export const useCards = (): UseCardsReturn => {
 
   return {
     cards,
+    filteredCards,
+    filter,
+    setFilter,
     handleAddCard,
     handleDelete,
     handleToggleFavorite,

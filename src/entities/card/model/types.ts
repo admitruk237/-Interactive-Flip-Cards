@@ -22,6 +22,9 @@ export interface Card {
 
 export interface UseCardsReturn {
   cards: Card[];
+  filteredCards: Card[];
+  filter: Category | 'all';
+  setFilter: (filter: Category | 'all') => void;
   handleAddCard: (card: Omit<Card, 'id' | 'isFavorite'>) => void;
   handleDelete: (id: string) => void;
   handleToggleFavorite: (id: string) => void;

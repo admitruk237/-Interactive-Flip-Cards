@@ -161,3 +161,9 @@ input[type='number'] {
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
 }
+
+[draggable='true'] img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
