@@ -1,3 +1,5 @@
+import type { MouseEvent } from 'react';
+
 export type Category = 'fire' | 'water' | 'earth' | 'air';
 export type Rarity = 'common' | 'rare' | 'epic' | 'legendary';
 
@@ -32,9 +34,10 @@ export interface UseFlipCardReturn {
     onMouseEnter: () => void;
     onMouseLeave: () => void;
     onClick: () => void;
+    onTouchStart: () => void;
   };
   actions: {
-    onFavorite: (e: import('react').MouseEvent) => void;
-    onDelete: (e: import('react').MouseEvent) => void;
+    onFavorite: (e: MouseEvent) => void;
+    onDelete: (e: MouseEvent) => void;
   };
 }

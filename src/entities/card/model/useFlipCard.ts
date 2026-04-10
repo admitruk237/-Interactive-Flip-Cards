@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type MouseEvent, useState } from 'react';
 import { useDeviceType } from '@shared/lib/hooks/useIsMobile';
 import { useFlipSound } from '@shared/lib/hooks/useFlipSound';
 import type { UseFlipCardReturn } from './types';
@@ -51,6 +51,7 @@ export function useFlipCard({ id, onDelete, onToggleFavorite }: Props): UseFlipC
       onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave,
       onClick: handleToggleFlip,
+      onTouchStart: handleToggleFlip,
     },
     actions: {
       onFavorite: handleFavorite,
