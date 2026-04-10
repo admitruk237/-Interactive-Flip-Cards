@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { FlipCard } from '@entities/card';
 import type { Card } from '@entities/card/model/types';
 import { useDragAndDrop } from '@shared/lib/hooks/useDragAndDrop';
+import { ConfirmDeleteDialog } from '@features/delete-card/ui/ConfirmDeleteDialog';
 import { cn } from '@shared/lib/utils';
 
 type Props = {
@@ -22,10 +24,19 @@ const GRID_LAYOUT_CLASSES = cn(
 );
 
 export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite }: Props) => {
+  const [cardToDelete, setCardToDelete] = useState<Card | null>(null);
+
   const { draggedIndex, handlers } = useDragAndDrop({
     items: cards,
     onReorder,
   });
+
+  const handleConfirmDelete = () => {
+    if (cardToDelete) {
+      onDelete(cardToDelete.id);
+      setCardToDelete(null);
+    }
+  };
 
   return (
     <div className={GRID_LAYOUT_CLASSES} id="grid-container">
@@ -40,9 +51,19 @@ export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite }: Props
           onDragOver={(e) => handlers.onDragOver(e, index)}
           onDragEnd={handlers.onDragEnd}
         >
-          <FlipCard card={card} onDelete={onDelete} onToggleFavorite={onToggleFavorite} />
+          <FlipCard
+            card={card}
+            onDelete={() => setCardToDelete(card)}
+            onToggleFavorite={onToggleFavorite}
+          />
         </div>
       ))}
+
+      <ConfirmDeleteDialog
+        card={cardToDelete}
+        onClose={() => setCardToDelete(null)}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 };

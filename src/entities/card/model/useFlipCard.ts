@@ -1,4 +1,4 @@
-import { useState, type MouseEvent } from 'react';
+import { useState } from 'react';
 import { useDeviceType } from '@shared/lib/hooks/useIsMobile';
 import { useFlipSound } from '@shared/lib/hooks/useFlipSound';
 
@@ -41,9 +41,7 @@ export function useFlipCard({ id, onDelete, onToggleFavorite }: Props) {
 
   const handleDelete = (e: MouseEvent) => {
     e.stopPropagation();
-    if (window.confirm('Delete this card?')) {
-      onDelete(id);
-    }
+    onDelete(id);
   };
 
   return {

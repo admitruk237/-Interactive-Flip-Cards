@@ -30,7 +30,7 @@ export const AddCardDialog = ({ onAdd }: Props) => {
           Add Card
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[550px] max-h-[600px] overflow-y-auto pr-2">
         <DialogHeader>
           <DialogTitle>Add New Dragon Card</DialogTitle>
           <DialogDescription>
