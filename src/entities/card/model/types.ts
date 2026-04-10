@@ -34,7 +34,6 @@ export interface UseFlipCardReturn {
     onMouseEnter: () => void;
     onMouseLeave: () => void;
     onClick: () => void;
-    onTouchStart: () => void;
   };
   actions: {
     onFavorite: (e: MouseEvent) => void;

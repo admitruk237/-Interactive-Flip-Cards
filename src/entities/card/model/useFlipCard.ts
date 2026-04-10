@@ -51,7 +51,6 @@ export function useFlipCard({ id, onDelete, onToggleFavorite }: Props): UseFlipC
       onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave,
       onClick: handleToggleFlip,
-      onTouchStart: handleToggleFlip,
     },
     actions: {
       onFavorite: handleFavorite,
