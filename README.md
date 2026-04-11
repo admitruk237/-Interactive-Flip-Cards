@@ -1,73 +1,83 @@
-# React + TypeScript + Vite
+# 🐉 Interactive Flip Cards – Cyberpunk Edition
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue.svg)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-Fast-646CFF.svg)](https://vitejs.dev/)
+[![FSD](https://img.shields.io/badge/Architecture-FSD-green.svg)](https://feature-sliced.design/)
 
-Currently, two official plugins are available:
+Сучасний інтерактивний додаток на React та TypeScript, що реалізує механіку 3D-карток з підтримкою Drag & Drop, кастомних тем та преміальним дизайном. Проект виконано в рамках **Homework #2** з фокусом на архітектуру та продуктивність.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🌟 Основні особливості
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **🎭 3D Flip Animation**: Реалістичне перевертання карток на основі CSS 3D Transforms.
+- **🖱️ Native Drag & Drop**: Зміна порядку карток перетягуванням (HTML5 API) з підтримкою тач-пристроїв.
+- **🌌 Cyberpunk Theme**: Ексклюзивна темна тема з анімованим фоном на **Three.js**.
+- **🌓 Multi-Theme Support**: Швидке перемикання між Light, Dark та Cyberpunk модами.
+- **🔊 Audio API**: Звукові ефекти при взаємодії з картками (Flip sound).
+- **⚡ CRUD & Filtering**: Додавання, видалення, позначення "Favourite" та фільтрація за категоріями.
+- **🧪 Unit Testing**: Покриття бізнес-логіки тестами (Vitest).
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🏗️ Архітектура: Feature-Sliced Design (FSD)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Проект побудований за методологією **FSD**, що забезпечує чіткий розподіл відповідальності:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- `app/` — ініціалізація, стири та провайдери.
+- `widgets/` — великі блоки сторінки (Header, CardGrid).
+- `features/` — інтерактивні дії (AddCard, Filter, ThemeToggle).
+- `entities/` — бізнес-логіка та UI сутності (Card).
+- `shared/` — перевикористовувані компоненти, хуки та конфіги.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+---
+
+## 🚀 Швидкий старт
+
+### 1. Клонування репозиторію
+
+```bash
+git clone https://github.com/USER_NAME/interactive-flip-cards.git
+cd interactive-flip-cards
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Встановлення залежностей
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+npm install
 ```
+
+### 3. Запуск у режимі розробки
+
+```bash
+npm run dev
+```
+
+### 4. Тестування
+
+```bash
+npm test
+```
+
+---
+
+## 🛠️ Технологічний стек
+
+- **Frontend**: React 18, TypeScript (Strict).
+- **Styling**: Tailwind CSS v4, Framer Motion (анімаційні переходи).
+- **State & Logic**: `react-hook-form` + `zod` (форми), `useState` + `useRef` (DnD).
+- **Graphics**: `Three.js` + `React Three Fiber` (Cyberpunk BG).
+- **Infrastructure**: Vite, Vitest, Lucide Icons.
+
+---
+
+## 📸 Скріншоти та Демо
+
+![Project Preview](.github/assets/preview.gif)
+
+---
+
+## 📄 Ліцензія
+
+Проект створено в навчальних цілях. Усі права застережено. 🐉🔥
