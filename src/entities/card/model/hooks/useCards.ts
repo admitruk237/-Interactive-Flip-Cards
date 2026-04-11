@@ -8,7 +8,10 @@ export const useCards = (): UseCardsReturn => {
   const [cards, setCards] = useState<Card[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : INITIAL_CARDS;
+      if (!saved) return INITIAL_CARDS;
+
+      const parsed = JSON.parse(saved);
+      return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_CARDS;
     } catch (e) {
       console.error('Failed to load cards from localStorage', e);
       return INITIAL_CARDS;

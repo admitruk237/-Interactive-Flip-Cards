@@ -14,19 +14,8 @@ interface Props {
   disableDrag?: boolean;
 }
 
-const GRID_LAYOUT_CLASSES = cn(
-  'grid w-full grid-cols-[repeat(auto-fill,minmax(160px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 sm:gap-8 overflow-visible justify-items-center',
-  /* 2 columns logic for larger screens */
-  '[#grid-container]:sm:[&>div:nth-child(2n+1)]:justify-self-start',
-  '[#grid-container]:sm:[&>div:nth-child(2n)]:justify-self-end',
-  /* 3 columns logic */
-  '[#grid-container]:lg:[&>div:nth-child(3n+1)]:justify-self-start',
-  '[#grid-container]:lg:[&>div:nth-child(3n)]:justify-self-end',
-  '[#grid-container]:lg:[&>div:nth-child(3n+2)]:justify-self-center'
-);
-
 export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite, disableDrag }: Props) => {
-  const [cardToDelete, setCardToDelete] = useState<Card | null>(null);
+  const [cardToDelete, setCardToDelete] = useState<{ id: string; title: string } | null>(null);
   const [parent, enableAnimations] = useAutoAnimate<HTMLDivElement>({
     duration: 700,
     easing: 'ease-out',
@@ -35,6 +24,7 @@ export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite, disable
   const { draggedIndex, handlers } = useDragAndDrop({
     items: cards,
     onReorder,
+    isDisabled: disableDrag,
   });
 
   const handleConfirmDelete = () => {
@@ -44,8 +34,32 @@ export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite, disable
     }
   };
 
+  const handleDragStart = (index: number) => (e: React.DragEvent<HTMLElement>) => {
+    if (disableDrag) {
+      e.preventDefault();
+      return;
+    }
+    enableAnimations(false);
+    handlers.onDragStart(e, index);
+  };
+
+  const handleDragOver = (index: number) => (e: React.DragEvent<HTMLElement>) => {
+    if (disableDrag) return;
+    handlers.onDragOver(e, index);
+  };
+
+  const handleDragEnd = (e: React.DragEvent<HTMLElement>) => {
+    if (disableDrag) return;
+    handlers.onDragEnd(e);
+    enableAnimations(true);
+  };
+
   return (
-    <div className={GRID_LAYOUT_CLASSES} id="grid-container" ref={parent}>
+    <div
+      className="grid w-full grid-cols-[repeat(auto-fill,minmax(160px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 sm:gap-8 overflow-visible justify-items-center"
+      id="grid-container"
+      ref={parent}
+    >
       {cards.map((card, index) => (
         <div
           key={card.id}
@@ -55,32 +69,21 @@ export const CardGrid = ({ cards, onReorder, onDelete, onToggleFavorite, disable
             draggedIndex === index && 'opacity-50 scale-95'
           )}
           draggable={!disableDrag}
-          onDragStart={(e) => {
-            if (disableDrag) {
-              e.preventDefault();
-              return;
-            }
-            enableAnimations(false);
-            handlers.onDragStart(index);
-          }}
-          onDragOver={(e) => !disableDrag && handlers.onDragOver(e, index)}
-          onDragEnd={() => {
-            if (!disableDrag) {
-              handlers.onDragEnd();
-              enableAnimations(true);
-            }
-          }}
+          onDragStart={handleDragStart(index)}
+          onDragOver={handleDragOver(index)}
+          onDragEnd={handleDragEnd}
         >
           <FlipCard
             card={card}
-            onDelete={() => setCardToDelete(card)}
+            onDelete={() => setCardToDelete({ id: card.id, title: card.title })}
             onToggleFavorite={onToggleFavorite}
           />
         </div>
       ))}
 
       <ConfirmDeleteDialog
-        card={cardToDelete}
+        isOpen={Boolean(cardToDelete)}
+        cardTitle={cardToDelete?.title || ''}
         onClose={() => setCardToDelete(null)}
         onConfirm={handleConfirmDelete}
       />

@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { type Control, type Path, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/shared/ui/button';
@@ -8,6 +8,7 @@ import { FormSelect } from '@/shared/ui/form-select';
 import {
   CATEGORIES,
   CATEGORY_OPTIONS,
+  DEFAULT_CARD_IMAGE,
   RARITIES,
   RARITY_OPTIONS,
   STAT_KEYS,
@@ -31,6 +32,14 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+const StatValue = ({ name, control }: { name: Path<FormValues>; control: Control<FormValues> }) => {
+  const value = useWatch({
+    control,
+    name,
+  });
+  return <span className="text-xs font-mono text-text-muted">{String(value ?? 0)}%</span>;
+};
+
 interface Props {
   onSubmit: (card: Omit<Card, 'id' | 'isFavorite'>) => void;
   onCancel: () => void;
@@ -41,104 +50,108 @@ export const AddCardForm = ({ onSubmit, onCancel }: Props) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
-      category: 'fire',
-      image:
-        'https://images.unsplash.com/photo-1577493322601-3ae1f35c750c?q=80&w=300&h=420&auto=format&fit=crop',
+      category: CATEGORIES[0],
+      image: DEFAULT_CARD_IMAGE,
       description: '',
       stats: {
         power: 50,
         defense: 50,
         speed: 50,
-        rarity: 'common',
+        rarity: RARITIES[0],
       },
     },
   });
 
   const handleFormSubmit = (values: FormValues) => {
-    onSubmit(values as Omit<Card, 'id' | 'isFavorite'>);
+    onSubmit({
+      title: values.title,
+      category: values.category,
+      image: values.image,
+      description: values.description || '',
+      stats: {
+        power: values.stats.power,
+        defense: values.stats.defense,
+        speed: values.stats.speed,
+        rarity: values.stats.rarity,
+      },
+    });
   };
 
   return (
-    <FormProvider {...form}>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">
-                General Info
-              </h3>
-              <FormInput
-                name="title"
-                label="Card Title"
-                placeholder="e.g. Ancient Ember"
-                className="bg-input-bg border-border"
-              />
-              <FormSelect
-                name="category"
-                label="Category"
-                placeholder="Select category"
-                options={CATEGORY_OPTIONS}
-              />
-              <FormSelect
-                name="stats.rarity"
-                label="Rarity"
-                placeholder="Select rarity"
-                options={RARITY_OPTIONS}
-              />
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">
-                Attributes
-              </h3>
-              <div className="grid grid-cols-1 gap-4 rounded-xl bg-input-bg p-4 border border-border">
-                {STAT_KEYS.map((stat) => (
-                  <FormInput
-                    key={stat}
-                    name={`stats.${stat}`}
-                    label={stat.charAt(0).toUpperCase() + stat.slice(1)}
-                    labelRight={
-                      <span className="text-xs font-mono text-text-muted">
-                        {form.watch(`stats.${stat}`)}%
-                      </span>
-                    }
-                    type="number"
-                    className="h-8 bg-background/50 border-border"
-                    onChange={(e) => form.setValue(`stats.${stat}`, Number(e.target.value))}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4 pt-4 border-t border-border">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
             <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">
-              Visuals & Legend
+              General Info
             </h3>
             <FormInput
-              name="image"
-              label="Image URL"
-              placeholder="https://..."
+              name="title"
+              label="Card Title"
+              placeholder="e.g. Ancient Ember"
               className="bg-input-bg border-border"
             />
-            <FormInput
-              name="description"
-              label="Short Lore"
-              placeholder="Describe your dragon..."
-              className="bg-input-bg border-border"
+            <FormSelect
+              name="category"
+              label="Category"
+              placeholder="Select category"
+              options={CATEGORY_OPTIONS}
+            />
+            <FormSelect
+              name="stats.rarity"
+              label="Rarity"
+              placeholder="Select rarity"
+              options={RARITY_OPTIONS}
             />
           </div>
 
-          <div className="flex justify-end gap-3 pt-6">
-            <Button type="button" variant="glass" size="action" onClick={onCancel}>
-              Cancel
-            </Button>
-            <Button type="submit" variant="gradient" size="action">
-              Forge Card
-            </Button>
+          <div className="space-y-4">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">
+              Attributes
+            </h3>
+            <div className="grid grid-cols-1 gap-4 rounded-xl bg-input-bg p-4 border border-border">
+              {STAT_KEYS.map((stat) => (
+                <FormInput
+                  key={stat}
+                  name={`stats.${stat}`}
+                  label={stat.charAt(0).toUpperCase() + stat.slice(1)}
+                  labelRight={<StatValue name={`stats.${stat}`} control={form.control} />}
+                  type="number"
+                  className="h-8 bg-background/50 border-border"
+                  onChange={(e) => form.setValue(`stats.${stat}`, Number(e.target.value))}
+                />
+              ))}
+            </div>
           </div>
-        </form>
-      </Form>
-    </FormProvider>
+        </div>
+
+        <div className="space-y-4 pt-4 border-t border-border">
+          <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">
+            Visuals & Legend
+          </h3>
+          <FormInput
+            name="image"
+            label="Image URL"
+            placeholder="https://..."
+            className="bg-input-bg border-border"
+          />
+          <FormInput
+            name="description"
+            label="Short Lore"
+            placeholder="Describe your dragon..."
+            className="bg-input-bg border-border"
+          />
+        </div>
+
+        <div className="flex justify-end gap-3 pt-6">
+          <Button type="button" variant="glass" size="action" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type="submit" variant="gradient" size="action">
+            Forge Card
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 };

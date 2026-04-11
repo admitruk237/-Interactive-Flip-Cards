@@ -23,6 +23,9 @@ export const CATEGORY_OPTIONS = CATEGORIES.map((cat) => ({
 
 export const STAT_KEYS = ['power', 'defense', 'speed'] as const;
 
+export const DEFAULT_CARD_IMAGE =
+  'https://images.unsplash.com/photo-1577493322601-3ae1f35c750c?q=80&w=300&h=420&auto=format&fit=crop';
+
 export const INITIAL_CARDS: Card[] = [
   {
     id: '1',
