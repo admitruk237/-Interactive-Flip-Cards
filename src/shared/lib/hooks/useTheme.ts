@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export type Theme = 'light' | 'dark' | 'system';
+export type Theme = 'light' | 'dark' | 'cyberpunk' | 'system';
 
 export interface UseThemeReturn {
   theme: Theme;
@@ -9,12 +9,12 @@ export interface UseThemeReturn {
 
 export function useTheme(): UseThemeReturn {
   const [theme, setTheme] = useState<Theme>(() => {
-    return (localStorage.getItem('theme') as Theme) || 'system';
+    return (localStorage.getItem('theme') as Theme) || 'cyberpunk';
   });
 
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.remove('light', 'dark');
+    root.classList.remove('light', 'dark', 'cyberpunk');
 
     if (theme === 'system') {
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches

@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @variant dark (&:where(.dark, .dark *));
+@variant cyberpunk (&:where(.cyberpunk, .cyberpunk *));
 
 @theme {
   --color-background: var(--background);
@@ -22,11 +23,13 @@
   --color-toggle-bg: var(--toggle-bg);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-dropdown-text: var(--dropdown-text);
+  --color-dropdown-hover: var(--dropdown-hover);
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #f8fafc;
+  --foreground: #0f172a;
   --secondary: #b4cfe9;
   --surface: #ffffffe5;
   --text-primary: #0f172a;
@@ -46,6 +49,8 @@
   --destructive: #ef4444;
   --destructive-foreground: #f8fafc;
   --dot-grid-color: rgba(15, 23, 42, 0.05);
+  --dropdown-text: #1e293b;
+  --dropdown-hover: #e2e8f0;
 }
 
 .dark {
@@ -70,6 +75,34 @@
   --destructive: #7f1d1d;
   --destructive-foreground: #f8fafc;
   --dot-grid-color: rgba(255, 255, 255, 0.03);
+  --dropdown-text: #f1f5f9;
+  --dropdown-hover: #1e293b;
+}
+
+.cyberpunk {
+  --background: #0f001e;
+  --secondary: #ff00ff;
+  --foreground: #1a0033;
+  --surface: #0f001ee5;
+  --text-primary: #00ffff;
+  --text-secondary: #ff00ff;
+  --text-muted: #8800cc;
+  --border: #ff00ff44;
+  --header-border: #ff00ff55;
+  --header-bg: #0f001ee5;
+  --input-bg: #1a0033;
+  --accent: #ff00ff33;
+  --accent-foreground: #00ffff;
+  --toggle-bg: #2a004d;
+  --favorite-bg: #330033;
+  --favorite-border: #ff00ff;
+  --favorite-text: #00ffff;
+  --active-border: #00ffff;
+  --destructive: #ff003c;
+  --destructive-foreground: #ffffff;
+  --dot-grid-color: rgba(0, 255, 255, 0.1);
+  --dropdown-text: #00ffff;
+  --dropdown-hover: rgba(255, 0, 255, 0.2);
 }
 
 @layer base {
@@ -113,6 +146,10 @@ body::after {
 
 .dark body::after {
   background: radial-gradient(circle at 50% -20%, rgba(56, 189, 248, 0.03), transparent 70%);
+}
+
+.cyberpunk body::after {
+  background: radial-gradient(circle at 50% -20%, rgba(255, 0, 255, 0.07), transparent 70%);
 }
 
 body::before {

@@ -7,7 +7,7 @@ import {
 } from '@/shared/ui/dropdown-menu';
 import { Button } from '@/shared/ui/button';
 import { Badge } from '@/shared/ui/badge';
-import { Monitor, Moon, Sun } from 'lucide-react';
+import { Monitor, Moon, Sun, Zap } from 'lucide-react';
 import type { Card } from '@/entities/card/model/types';
 
 interface Props {
@@ -43,10 +43,11 @@ export const Header = ({ cards }: Props) => {
             <Button
               variant="ghost"
               size="icon"
-              className="h-10 w-10 rounded-xl bg-toggle-bg shadow-sm hover:opacity-90 transition-all border-none outline-none focus:ring-0 focus-visible:ring-0"
+              className="h-10 w-10 rounded-xl bg-toggle-bg shadow-sm hover:opacity-90 transition-all border-none outline-none focus:ring-0 focus-visible:ring-0 overflow-hidden relative"
             >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-500" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-sky-500" />
+              <Sun className="h-4 w-4 absolute inset-0 m-auto transition-all text-amber-500 scale-100 dark:scale-0 cyberpunk:scale-0" />
+              <Moon className="h-4 w-4 absolute inset-0 m-auto transition-all text-sky-500 scale-0 dark:scale-100 cyberpunk:scale-0" />
+              <Zap className="h-4 w-4 absolute inset-0 m-auto transition-all text-[#f0f] scale-0 dark:scale-0 cyberpunk:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
           </DropdownMenuTrigger>
@@ -54,16 +55,16 @@ export const Header = ({ cards }: Props) => {
             align="end"
             className="w-40 rounded-xl border-border bg-background/90 backdrop-blur-lg"
           >
-            <DropdownMenuItem onClick={() => setTheme('light')} className="gap-3 focus:bg-white/10">
+            <DropdownMenuItem onClick={() => setTheme('light')} className="gap-3">
               <Sun size={14} className="text-amber-500" /> Light
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme('dark')} className="gap-3 focus:bg-white/10">
+            <DropdownMenuItem onClick={() => setTheme('dark')} className="gap-3">
               <Moon size={14} className="text-sky-500" /> Dark
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => setTheme('system')}
-              className="gap-3 focus:bg-white/10"
-            >
+            <DropdownMenuItem onClick={() => setTheme('cyberpunk')} className="gap-3">
+              <Zap size={14} className="text-[#f0f]" /> Cyberpunk
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme('system')} className="gap-3">
               <Monitor size={14} className="text-slate-500" /> System
             </DropdownMenuItem>
           </DropdownMenuContent>
