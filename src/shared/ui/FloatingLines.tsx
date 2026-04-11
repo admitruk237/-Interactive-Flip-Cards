@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { type CSSProperties, useCallback, useEffect, useRef } from 'react';
 import {
   Clock,
+  type IUniform,
   Mesh,
   OrthographicCamera,
   PlaneGeometry,
@@ -248,7 +249,7 @@ interface FloatingLinesProps {
   mouseDamping?: number;
   parallax?: boolean;
   parallaxStrength?: number;
-  mixBlendMode?: any;
+  mixBlendMode?: CSSProperties['mixBlendMode'];
 }
 
 export default function FloatingLines({
@@ -326,7 +327,7 @@ export default function FloatingLines({
     renderer.domElement.style.height = '100%';
     container.appendChild(renderer.domElement);
 
-    const uniforms: any = {
+    const uniforms: Record<string, IUniform> = {
       iTime: { value: 0 },
       iResolution: { value: new Vector3(1, 1, 1) },
       animationSpeed: { value: animationSpeed },
@@ -347,21 +348,21 @@ export default function FloatingLines({
         value: new Vector3(
           topWavePosition?.x ?? 10.0,
           topWavePosition?.y ?? 0.5,
-          (topWavePosition as any)?.rotate ?? -0.4
+          topWavePosition?.rotate ?? -0.4
         ),
       },
       middleWavePosition: {
         value: new Vector3(
           middleWavePosition?.x ?? 5.0,
           middleWavePosition?.y ?? 0.0,
-          (middleWavePosition as any)?.rotate ?? 0.2
+          middleWavePosition?.rotate ?? 0.2
         ),
       },
       bottomWavePosition: {
         value: new Vector3(
           bottomWavePosition?.x ?? 2.0,
           bottomWavePosition?.y ?? -0.7,
-          (bottomWavePosition as any)?.rotate ?? 0.4
+          bottomWavePosition?.rotate ?? 0.4
         ),
       },
 
@@ -450,8 +451,8 @@ export default function FloatingLines({
     };
 
     if (interactive) {
-      renderer.domElement.addEventListener('pointermove', handlePointerMove as any);
-      renderer.domElement.addEventListener('pointerleave', handlePointerLeave);
+      renderer.domElement.addEventListener('pointermove', handlePointerMove as EventListener);
+      renderer.domElement.addEventListener('pointerleave', handlePointerLeave as EventListener);
     }
 
     let raf = 0;
@@ -487,8 +488,11 @@ export default function FloatingLines({
       if (ro) ro.disconnect();
 
       if (interactive) {
-        renderer.domElement.removeEventListener('pointermove', handlePointerMove as any);
-        renderer.domElement.removeEventListener('pointerleave', handlePointerLeave);
+        renderer.domElement.removeEventListener('pointermove', handlePointerMove as EventListener);
+        renderer.domElement.removeEventListener(
+          'pointerleave',
+          handlePointerLeave as EventListener
+        );
       }
 
       geometry.dispose();
